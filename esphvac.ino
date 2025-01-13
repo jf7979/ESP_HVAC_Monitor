@@ -1,18 +1,13 @@
 // Include the libraries we need
 #include <OneWire.h>
 #include <DallasTemperature.h>
-//#include <ESP8266WiFi.h>
 #include "SSD1306Wire.h"
-//#include <DNSServer.h>
 #include <ESP8266WebServer.h>
-//#include <WiFiManager.h>
-SSD1306Wire display(0x3C, 4, 5);
-
 #include <Wire.h>
 #include <SPI.h>
-//#include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
+SSD1306Wire display(0x3C, 4, 5);
 const char* ssid = "wifi";                // The SSID (name) of the Wi-Fi network you want to connect to
 const char* password = "pass";  // The password of the Wi-Fi network
 
@@ -54,7 +49,7 @@ String sensor2 = "External: Good to go";
 void setup(void) {
   //Serial.begin(115200);
 
-  pinMode(16, OUTPUT);  //D0
+  pinMode(16, OUTPUT);  //D0 Green LED light
   digitalWrite(16, LOW);
   pinMode(15, OUTPUT);  //D8 The UV light relay
   digitalWrite(15, LOW);
@@ -215,9 +210,11 @@ void loop() {
 
 
     if (pressureDiff > 45) {
-      digitalWrite(16, HIGH);  // sets the digital pin 13 on
+      digitalWrite(16, HIGH);
+      digitalWrite(15, HIGH);
     } else {
-      digitalWrite(16, LOW);  // sets the digital pin 13 off
+      digitalWrite(16, LOW);
+      digitalWrite(15, LOW);
     }
 
     delay(1000);
